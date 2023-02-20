@@ -1,7 +1,5 @@
 # ⚠ Don't use relative imports
 
-# import q
-
 import re
 import urllib.error
 import urllib.parse
@@ -48,8 +46,6 @@ class KhazinIE(InfoExtractor):
 
         m = cls.IFRAME_RE.search(rootWebpage)
 
-        # q(rootWebpage)
-
         iframesrc = m.group('src')
         video_id = m.group('embed_id')
 
@@ -58,8 +54,6 @@ class KhazinIE(InfoExtractor):
 
         iframeWebpage = self._download_webpage(
             req, url, "Downloading kinescope media iframe")
-
-        # q(iframeWebpage)
 
         m = cls.MASTER_STREAM_URL_RE.search(iframeWebpage)
         s_url = m.group('s_url')
@@ -101,7 +95,5 @@ class KhazinIE(InfoExtractor):
             'uploader': uploader,
             'thumbnail': re.compile(r'<meta property=\"og:image\" content=\"(?P<image>\S+)\" />').search(rootWebpage).group('image'),
         }
-
-        # q(result)
 
         return result
