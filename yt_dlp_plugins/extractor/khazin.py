@@ -5,7 +5,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import html
-import dateutil.parser
 import isodate
 
 from yt_dlp.extractor.common import InfoExtractor
@@ -75,14 +74,14 @@ class KhazinIE(InfoExtractor):
 
         uploader = 'Михаил Хазин'
 
-        published_time = int(dateutil.parser.parse(re.compile(
+        published_time = int(isodate.parse_datetime(re.compile(
             r'<meta property=\"article:published_time\" content=\"(?P<published_time>\S+)\" />').search(rootWebpage).group('published_time')).timestamp())
 
         modified_time = None
         m = re.compile(
             r'<meta property=\"article:modified_time\" content=\"(?P<modified_time>\S+)\" />').search(rootWebpage)
         if m is not None:
-            modified_time = int(dateutil.parser.parse(
+            modified_time = int(isodate.parse_datetime(
                 m.group('modified_time')).timestamp())
 
         result = {
