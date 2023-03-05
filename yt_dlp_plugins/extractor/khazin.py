@@ -77,12 +77,11 @@ class KhazinIE(InfoExtractor):
         published_time = int(isodate.parse_datetime(re.compile(
             r'<meta property=\"article:published_time\" content=\"(?P<published_time>\S+)\" />').search(rootWebpage).group('published_time')).timestamp())
 
-        modified_time = None
-        m = re.compile(
+        mt = re.compile(
             r'<meta property=\"article:modified_time\" content=\"(?P<modified_time>\S+)\" />').search(rootWebpage)
-        if m is not None:
-            modified_time = int(isodate.parse_datetime(
-                m.group('modified_time')).timestamp())
+
+        tn = re.compile(
+            r'<meta property=\"og:image\" content=\"(?P<image>\S+)\" />').search(rootWebpage)
 
         result = {
             'id': video_id,
@@ -90,9 +89,9 @@ class KhazinIE(InfoExtractor):
             'formats': formats,
             'duration': duration,
             'timestamp': published_time,
-            'modified_timestamp': modified_time,
+            'modified_timestamp': mt and int(isodate.parse_datetime(mt.group('modified_time')).timestamp()),
             'uploader': uploader,
-            'thumbnail': re.compile(r'<meta property=\"og:image\" content=\"(?P<image>\S+)\" />').search(rootWebpage).group('image'),
+            'thumbnail': tn and tn.group('image'),
         }
 
         return result
