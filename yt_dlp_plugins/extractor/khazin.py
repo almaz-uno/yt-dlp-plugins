@@ -22,6 +22,7 @@ from yt_dlp.extractor.common import InfoExtractor
 
 # ⚠ The class name must end in "IE"
 class KhazinIE(InfoExtractor):
+    IE_NAME = 'khazin'
     _WORKING = True
     _VALID_URL = r'^https://khazin.ru/'
 
