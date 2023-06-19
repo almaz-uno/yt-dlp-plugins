@@ -72,6 +72,8 @@ class KhazinIE(InfoExtractor):
 
         for f in formats:
             f['http_headers'] = {'Referer': 'https://khazin.ru/'}
+            if f['ext'] is None and f['vcodec'] == 'none':
+                f['ext'] = 'm4a'
 
         uploader = 'Михаил Хазин'
 
